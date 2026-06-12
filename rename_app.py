@@ -359,9 +359,11 @@ if uploaded_files:
             total_renamed += len(renamed)
             total_skipped += len(zskipped)
 
-            out_name = new_name(uploaded.name) or "renamed"
+            # Keep the SAME name as the uploaded zip; only the files inside
+            # are renamed to their IDs.
+            out_name = uploaded.name
             if not out_name.lower().endswith(".zip"):
-                out_name = os.path.splitext(out_name)[0] + ".zip"
+                out_name += ".zip"
             processed.append(
                 ("zip", uploaded.name, renamed, zskipped, zip_bytes, out_name)
             )
